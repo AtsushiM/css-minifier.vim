@@ -45,6 +45,8 @@ endfunction
 function! cssminifier#Exe(...)
     let output = ''
     let input = ''
+    let start = 0
+    let end = 0
 
     if a:0 != 0
         for e in a:000
@@ -53,6 +55,10 @@ function! cssminifier#Exe(...)
                 let input = eary[1]
             elseif eary[0] == '-output'
                 let output = eary[1]
+            elseif eary[0] == '-start'
+                let start = eary[1] - 1
+            elseif eary[0] == '-end'
+                let end = eary[1] - 1
             endif
         endfor
     endif
@@ -64,14 +70,30 @@ function! cssminifier#Exe(...)
         let output = fnamemodify(input, ':p:r').'.min.'.fnamemodify(input, ':e')
     endif
 
-    " remove return & indent
     let css = readfile(input)
+
+    if end == 0
+        let end = len(css)
+    endif
+
+    let ary_before = []
+    let ary_after = []
     let ret = ''
+    let pointer = 0
     for e in css
-        let i = matchlist(e, '\v^(\s*)(.*)')
-        if i != []
-            let ret = ret.i[2]
+        if pointer >= start && pointer <= end
+            let i = matchlist(e, '\v^(\s*)(.*)')
+            if i != []
+                let ret = ret.i[2]
+            endif
+        else
+            if pointer < start
+                call add(ary_before, e)
+            else
+                call add(ary_after, e)
+            endif
         endif
+        let pointer = pointer + 1
     endfor
 
     " remove comment
@@ -131,5 +153,8 @@ function! cssminifier#Exe(...)
     endwhile
     let ret = min
 
-    call writefile([ret], output)
+    call add(ary_before, ret)
+    call extend(ary_before, ary_after)
+
+    call writefile(ary_before, output)
 endfunctio
