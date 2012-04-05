@@ -43,10 +43,31 @@ function! cssminifier#removeExstraSpace(line, needle)
 endfunction
 
 function! cssminifier#Exe(...)
+    let output = ''
+    let input = ''
+
+    if a:0 != 0
+        for e in a:000
+            let eary = split(e,'=')
+            if eary[0] == '-input'
+                let input = eary[1]
+            elseif eary[0] == '-output'
+                let output = eary[1]
+            endif
+        endfor
+    endif
+
+    if input == ''
+        let input = expand('%')
+    endif
+    if output == ''
+        let output = fnamemodify(input, ':p:r').'.min.'.fnamemodify(input, ':e')
+    endif
+
     " remove return & indent
-    let html = readfile(expand('%'))
+    let css = readfile(input)
     let ret = ''
-    for e in html
+    for e in css
         let i = matchlist(e, '\v^(\s*)(.*)')
         if i != []
             let ret = ret.i[2]
@@ -110,10 +131,5 @@ function! cssminifier#Exe(...)
     endwhile
     let ret = min
 
-    if a:0 != 0
-        let fname = a:000[0]
-    else
-        let fname = expand('%:p:r').'.min.'.expand('%:e')
-    endif
-    call writefile([ret], fname)
+    call writefile([ret], output)
 endfunctio
