@@ -1,5 +1,27 @@
 :CSSMinifier
 をcss上で実行すればファイルと同改装に~.min.cssとして書き出します。
 
-:CSSMinifier fname
-でfnameがファイル名になります
+オプション：
+-input=hogehoge.css
+入力ファイルをhogehoge.htmlに変更します。
+
+-output=hogehoge.css
+出力ファイルをhogehoge.htmlに変更します。
+
+-start=0
+ミニファイを実行開始する行を指定します。
+
+-end=0
+ミニファイを終了する行を指定します。
+0の場合、最終行までミニファイします。
+
+
+例:
+現在ファイルをhogehoge.cssで出力
+:HTMLMinifier -output=hogehoge.css
+
+hogehoge.cssをfugafuga.cssで出力
+:HTMLMinifier -input=hogehoge.css -output=fugafuga.css
+
+hoge.cssの10〜30行をfuga.cssで出力
+:HTMLMinifier -input=hoge.css -output=fuga.css -start=10 -end=30
