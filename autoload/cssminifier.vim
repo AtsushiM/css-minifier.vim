@@ -128,14 +128,29 @@ function! cssminifier#Exe(...)
     let ret = min
 
     " remove extra space
-    let ret = cssminifier#removeExstraSpace(ret, '\{')
-    let ret = cssminifier#removeExstraSpace(ret, '\}')
-    let ret = cssminifier#removeExstraSpace(ret, '\(')
-    let ret = cssminifier#removeExstraSpace(ret, '\)')
-    let ret = cssminifier#removeExstraSpace(ret, '\"')
-    let ret = cssminifier#removeExstraSpace(ret, '\,')
-    let ret = cssminifier#removeExstraSpace(ret, ':')
-    let ret = cssminifier#removeExstraSpace(ret, ';')
+    " let ret = cssminifier#removeExstraSpace(ret, '\{')
+    " let ret = cssminifier#removeExstraSpace(ret, '\}')
+    " let ret = cssminifier#removeExstraSpace(ret, '\(')
+    " let ret = cssminifier#removeExstraSpace(ret, '\)')
+    " let ret = cssminifier#removeExstraSpace(ret, '\"')
+    " let ret = cssminifier#removeExstraSpace(ret, '\,')
+    " let ret = cssminifier#removeExstraSpace(ret, ':')
+    " let ret = cssminifier#removeExstraSpace(ret, ';')
+
+    let end = 0
+    let min = ''
+    while end == 0
+        let i = matchlist(ret, '\v(.{-})\s*([\{\}\(\)\"\,:;])\s*(.*)')
+
+        if i != []
+            let min = min.i[1].i[2]
+            let ret = i[3]
+        else
+            let min = min.ret
+            let end = 1
+        endif
+    endwhile
+    let ret = min
 
     " remove extra semicolon
     let end = 0
