@@ -3,10 +3,10 @@
 
 オプション：
 -input=hogehoge.css
-入力ファイルをhogehoge.htmlに変更します。
+入力ファイルをhogehoge.cssに変更します。
 
 -output=hogehoge.css
-出力ファイルをhogehoge.htmlに変更します。
+出力ファイルをhogehoge.cssに変更します。
 
 -start=0
 ミニファイを実行開始する行を指定します。
