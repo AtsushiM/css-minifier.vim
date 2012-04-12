@@ -22,26 +22,6 @@ function! cssminifier#CommentRemove()
     call setline('.', ret)
 endfunction
 
-function! cssminifier#removeExstraSpace(line, needle)
-    let end = 0
-    let min = ''
-    let ret = a:line
-    let nee = a:needle
-
-    while end == 0
-        let i = matchlist(ret, '\v(.{-})\s*('.nee.')\s*(.*)')
-
-        if i != []
-            let min = min.i[1].i[2]
-            let ret = i[3]
-        else
-            let min = min.ret
-            let end = 1
-        endif
-    endwhile
-    return min
-endfunction
-
 function! cssminifier#Exe(...)
     let output = ''
     let input = ''
@@ -128,15 +108,6 @@ function! cssminifier#Exe(...)
     let ret = min
 
     " remove extra space
-    " let ret = cssminifier#removeExstraSpace(ret, '\{')
-    " let ret = cssminifier#removeExstraSpace(ret, '\}')
-    " let ret = cssminifier#removeExstraSpace(ret, '\(')
-    " let ret = cssminifier#removeExstraSpace(ret, '\)')
-    " let ret = cssminifier#removeExstraSpace(ret, '\"')
-    " let ret = cssminifier#removeExstraSpace(ret, '\,')
-    " let ret = cssminifier#removeExstraSpace(ret, ':')
-    " let ret = cssminifier#removeExstraSpace(ret, ';')
-
     let end = 0
     let min = ''
     while end == 0
