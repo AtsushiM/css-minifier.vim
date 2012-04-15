@@ -142,5 +142,5 @@ function! cssminifier#Exe(...)
     call add(ary_before, ret)
     call extend(ary_before, ary_after)
 
-    call writefile(ary_before, output)
+    call writefile(ary_before, output, 'b')
 endfunctio
