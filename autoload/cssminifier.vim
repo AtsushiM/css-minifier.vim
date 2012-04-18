@@ -3,6 +3,9 @@
 "VERSION:  0.9
 "LICENSE:  MIT
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 function! cssminifier#CommentRemove()
     let line = getline('.')
     let end = 0
@@ -144,3 +147,5 @@ function! cssminifier#Exe(...)
 
     call writefile(ary_before, output, 'b')
 endfunctio
+
+let &cpo = s:save_cpo
