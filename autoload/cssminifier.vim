@@ -142,6 +142,38 @@ function! cssminifier#Exe(...)
     endwhile
     let ret = min
 
+    " remove dabule colon
+    let end = 0
+    let min = ''
+    while end == 0
+        let i = matchlist(ret, '\v(.{-}url\()"(.{-})"(\).*)')
+
+        if i != []
+            let min = min.i[1].i[2]
+            let ret = i[3]
+        else
+            let min = min.ret
+            let end = 1
+        endif
+    endwhile
+    let ret = min
+
+    " remove dabule colon
+    let end = 0
+    let min = ''
+    while end == 0
+        let i = matchlist(ret, '\v(.{-}url\()''(.{-})''(\).*)')
+
+        if i != []
+            let min = min.i[1].i[2]
+            let ret = i[3]
+        else
+            let min = min.ret
+            let end = 1
+        endif
+    endwhile
+    let ret = min
+
     call add(ary_before, ret)
     call extend(ary_before, ary_after)
 
