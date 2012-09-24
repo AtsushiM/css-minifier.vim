@@ -142,7 +142,7 @@ function! cssminifier#Exe(...)
     endwhile
     let ret = min
 
-    " remove dabule colon
+    " remove dabule quotes
     let end = 0
     let min = ''
     while end == 0
@@ -158,7 +158,7 @@ function! cssminifier#Exe(...)
     endwhile
     let ret = min
 
-    " remove dabule colon
+    " remove single quotes
     let end = 0
     let min = ''
     while end == 0
@@ -167,6 +167,22 @@ function! cssminifier#Exe(...)
         if i != []
             let min = min.i[1].i[2]
             let ret = i[3]
+        else
+            let min = min.ret
+            let end = 1
+        endif
+    endwhile
+    let ret = min
+
+    " remove 0.x
+    let end = 0
+    let min = ''
+    while end == 0
+        let i = matchlist(ret, '\v(.{-})0(\.[0-9]+.*)')
+
+        if i != []
+            let min = min.i[1]
+            let ret = i[2]
         else
             let min = min.ret
             let end = 1
