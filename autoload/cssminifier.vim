@@ -178,7 +178,7 @@ function! cssminifier#Exe(...)
     let end = 0
     let min = ''
     while end == 0
-        let i = matchlist(ret, '\v(.{-})0(\.[0-9]+.*)')
+        let i = matchlist(ret, '\v(.{-} )0(\.[0-9]+.*)')
 
         if i != []
             let min = min.i[1]
